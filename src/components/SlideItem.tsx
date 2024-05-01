@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import NextButton from './NextButton';
 
 type Props = {
   item: {
@@ -45,9 +46,9 @@ function SlideItem({item}: Props): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      {item.id == 1 && <View style={[styles.section, {width: width}]}>
+      <View style={[styles.section, {width: width}]}>
         <Text style={styles.title}>{item.title}</Text>
-      </View>}
+      </View>
       {questions()}
     </View>
   );
@@ -56,10 +57,12 @@ function SlideItem({item}: Props): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
+    height: '100%',
   },
   section: {
     alignItems: 'center',
     justifyContent: 'space-around',
+    height: '5%',
   },
   title: {
     color: '#122383',

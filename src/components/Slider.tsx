@@ -4,6 +4,7 @@ import { Animated, FlatList, StyleSheet, View, } from 'react-native';
 import slides from './slides'
 import SlideItem from './SlideItem'
 import Pagination from './Pagination'
+import NextButton from './NextButton';
 
 function Slider(): React.JSX.Element {
   const scrollX = useRef(new Animated.Value(0)).current
@@ -30,7 +31,7 @@ function Slider(): React.JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    maxWidth: '100%',
+    width: '100%',
     height: '100%',
     backgroundColor: '#fff',
   }

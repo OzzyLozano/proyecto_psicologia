@@ -3,7 +3,6 @@ import React from 'react'
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 type Props = {
-
 }
 
 const {width, height} = Dimensions.get('screen')

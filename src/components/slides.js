@@ -1,7 +1,6 @@
 export default [
   {
     id: 1,
-    title: "En nahualli queremos conocerte...",
     questions: [
       {
         question: "¿Te sientes bien contigo mismo?",
@@ -19,7 +18,6 @@ export default [
   },
   {
     id: 2,
-    title: "En nahualli queremos conocerte...",
     questions: [
       {
         question: "¿Ultimamente te has sentido solo?",
@@ -37,7 +35,6 @@ export default [
   },
   {
     id: 3,
-    title: "En nahualli queremos conocerte...",
     questions: [
       {
         question: "¿Te has sentido ignorado?",
@@ -55,7 +52,6 @@ export default [
   },
   {
     id: 4,
-    title: "En nahualli queremos conocerte...",
     questions: [
       {
         question: "En los 3 ultimos meses, ¿Te has sentido deprimido?",

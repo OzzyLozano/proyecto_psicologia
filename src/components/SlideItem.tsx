@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 import NextButton from './NextButton';
+import { useNavigation } from '@react-navigation/native';
 
 type Props = {
   item: {
     id: number;
-    title: string;
     questions: {
         question: string;
         answers: string[];
@@ -14,26 +14,27 @@ type Props = {
 }
 
 function SlideItem({item}: Props): React.JSX.Element {
+  const navigation = useNavigation()
   const {width, height} = useWindowDimensions()
   const questions = () => {
-    return Object.values(item.questions).map((questions) => {
+    return Object.values(item.questions).map((questions, index) => {
       if (!item || !questions) return null
       return (
-        <React.Fragment key={item.id}>
+        <React.Fragment key={index}>
         <View style={[styles.section, {width: width.valueOf(), height: height*.25}]}>
           <Text style={styles.question}>{questions.question}</Text>
-          {questions.answers.map((answer) => {
+          {questions.answers.map((answer, index) => {
             return (
-              <React.Fragment key={item.id}>
-                {answer.length == 2 && <View style={styles.answerSection}>
-                  <View style={styles.option} />
+              <React.Fragment key={index}>
+                {answer.length == 2 && <TouchableOpacity style={styles.answerSection} onPress={() => {}}>
+                  <View style={[styles.option, {width: 30, height: 30}]} />
                   <Text style={styles.answer}>{answer}</Text>
-                </View>}
+                </TouchableOpacity>}
                 {answer.length > 2 && <View style={styles.fourAnswerSection}>
-                  <View style={{flexDirection: 'row'}}>
+                  <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => {}}>
                     <View style={styles.option} />
                     <Text style={styles.answer}>{answer}</Text>
-                  </View>
+                  </TouchableOpacity>
                 </View>}
               </React.Fragment>
             )
@@ -46,10 +47,13 @@ function SlideItem({item}: Props): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.section, {width: width}]}>
-        <Text style={styles.title}>{item.title}</Text>
-      </View>
+      {item.id == 1 && <View style={[styles.section]}>
+        <Text style={styles.title}>En Nahualli queremos conocerte...</Text>
+      </View>}
       {questions()}
+      {item.id == 4 && <TouchableOpacity style={[styles.button]}>
+        <Text style={[styles.btntxt]} onPress={() => {navigation.navigate('Avatars' as never)}} >Siguiente</Text>
+      </TouchableOpacity>}
     </View>
   );
 }
@@ -57,7 +61,7 @@ function SlideItem({item}: Props): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    height: '100%',
+    alignItems:'center',
   },
   section: {
     alignItems: 'center',
@@ -83,17 +87,31 @@ const styles = StyleSheet.create({
   },
   answerSection: {
     flexDirection: 'row',
+    alignItems: 'center',
     width: '40%',
   },
   option: {
     width: 20,
     height: 20,
     backgroundColor: '#0071bc',
-    borderRadius: 10,
+    borderRadius: 20,
+    borderWidth: 0,
   },
   answer: {
     color: '#122383',
     marginHorizontal: 30,
+  },
+  button: {
+    backgroundColor: '#122383',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    marginTop: 24,
+    marginBottom: -24,
+  },
+  btntxt: {
+    color: '#fff',
+    fontSize: 16,
   },
 });
 

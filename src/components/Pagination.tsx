@@ -4,7 +4,6 @@ import { Animated, Dimensions, StyleSheet, View, } from 'react-native';
 type Props = {
   data: {
     id: number;
-    title: string;
     questions: {
         question: string;
         answers: string[];
@@ -25,7 +24,7 @@ function Pagination({data, scrollX}: Props): React.JSX.Element {
           extrapolate: 'clamp',
         })
         return (
-          <React.Fragment key={page.id}>
+          <React.Fragment key={index}>
             <Animated.View style={[styles.dots, {width: dotWidth}]} />
           </React.Fragment>
         )

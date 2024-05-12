@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Animated, FlatList, StyleSheet, View, } from 'react-native';
 
-import slides from './slides'
+import slides from '../../data/slides'
 import SlideItem from './SlideItem'
 import Pagination from './Pagination'
 import NextButton from './NextButton';

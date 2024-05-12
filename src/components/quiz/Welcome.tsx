@@ -5,7 +5,7 @@ import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 type Props = {
 }
 
-const {width, height} = Dimensions.get('screen')
+const {width, height} = Dimensions.get('window')
 const Welcome = (): React.JSX.Element => {
   const navigation = useNavigation()
   

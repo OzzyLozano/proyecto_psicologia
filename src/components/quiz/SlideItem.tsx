@@ -102,12 +102,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
   },
   button: {
-    backgroundColor: '#122383',
+    backgroundColor: '#0071bc',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 8,
     marginTop: 24,
-    marginBottom: -24,
   },
   btntxt: {
     color: '#fff',

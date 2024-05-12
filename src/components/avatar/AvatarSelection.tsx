@@ -1,23 +1,41 @@
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { useState } from 'react'
 import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-import avatars from '../data/avatars'
+import avatars from '../../data/avatars'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 type Props = {
+  quiz: boolean,
+  setQuiz: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+interface Avatar {
+  id: number;
+  name: string;
+  img: any;
+  description: string;
 }
 
 const avatarList = avatars
 
-const {width, height} = Dimensions.get('screen')
-const AvatarSelection = (): React.JSX.Element => {
+const {width, height} = Dimensions.get('window')
+const AvatarSelection = ({quiz, setQuiz}: Props): React.JSX.Element => {
   const navigation = useNavigation()
+  const [selectedAvatar, setSelectedAvatar] = useState<Avatar>({
+    id: 0,
+    name: "",
+    img: undefined,
+    description: ""
+  })
+  const [avatarStyle, setAvatarStyle] = useState<any>({})
   const showAvatars = () => {
     return Object.values(avatarList).map((avatar) => {
       return (
         <React.Fragment key={avatar.id}>
-          <TouchableOpacity style={[styles.sectionContainer]} onPress={() => {
-            console.log('pressed:', avatar.id)
+          <TouchableOpacity style={[styles.sectionContainer, selectedAvatar?.id === avatar.id && styles.selected]} onPress={() => {
+            setSelectedAvatar(avatar)
+            setAvatarStyle(styles.selected)
           }}>
             <View style={[styles.avatarBg]}>
               <Image style={[styles.avatar]} source={avatar.img} resizeMode='contain' />
@@ -34,9 +52,26 @@ const AvatarSelection = (): React.JSX.Element => {
       <Text style={styles.title}>¡Elige tu avatar!</Text>
       <ScrollView>
         {showAvatars()}
-        {<TouchableOpacity style={styles.button} onPress={() => {navigation.navigate('Home' as never)}} >
+        <TouchableOpacity style={styles.button} onPress={() => {
+          AsyncStorage.getItem('quiz').then((value) => {
+            if (value !== null) {
+              setQuiz(false)
+            } else {
+              AsyncStorage.setItem('quiz', 'false')
+            }
+          })
+          AsyncStorage.getItem('avatar').then((value) => {
+            if (value !== null) {
+              console.log(value)
+            } else {
+              AsyncStorage.setItem('avatar', selectedAvatar.id.toString())
+            }
+          })
+          console.log(selectedAvatar)
+          navigation.navigate('Home' as never)
+          }} >
           <Text style={styles.btntxt}>Finalizar</Text>
-        </TouchableOpacity>}
+        </TouchableOpacity>
       </ScrollView>
     </View>
   )
@@ -90,8 +125,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 8,
-    marginTop: -30,
-    marginBottom: 60,
+    marginTop: -35,
+    marginBottom: 15,
     alignSelf: 'center'
   },
   btntxt: {
@@ -99,6 +134,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '600',
     fontSize: 18,
+  },
+  selected: {
+    padding: 16,
   },
 })
 
